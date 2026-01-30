@@ -1,15 +1,22 @@
 const express = require("express");
+const router = express.Router();
 const {
-  dispatchAmbulance,
-  updateAmbulanceLocation,
+  getAmbulance,
+  updateLocation,
+  getRoute,
+  findNearest,
 } = require("../controllers/ambulanceController");
 
-const router = express.Router();
+// GET /api/ambulance/nearby - Find nearest ambulance
+router.get("/nearby", findNearest);
 
-// POST /api/ambulance/dispatch
-router.post("/dispatch", dispatchAmbulance);
+// GET /api/ambulance/:id - Get ambulance details
+router.get("/:id", getAmbulance);
 
-// POST /api/ambulance/location
-router.post("/location", updateAmbulanceLocation);
+// POST /api/ambulance/:id/location - Update ambulance location
+router.post("/:id/location", updateLocation);
+
+// GET /api/ambulance/:id/route - Get route and ETA
+router.get("/:id/route", getRoute);
 
 module.exports = router;

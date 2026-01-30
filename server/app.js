@@ -11,10 +11,11 @@ const vehicleRoutes = require("./routes/vehicleRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// API Routes
+// Routes
 app.use("/api/emergency", emergencyRoutes);
 app.use("/api/ambulance", ambulanceRoutes);
 app.use("/api/hospital", hospitalRoutes);
@@ -23,7 +24,31 @@ app.use("/api/vehicles", vehicleRoutes);
 
 // Health check
 app.get("/", (req, res) => {
-  res.send("🚑 RescueRoute API is running");
+  res.json({
+    message: "🚑 RescueRoute API is running",
+    version: "1.0.0",
+    endpoints: {
+      emergency: "/api/emergency",
+      ambulance: "/api/ambulance",
+      hospital: "/api/hospital",
+      traffic: "/api/traffic",
+      vehicles: "/api/vehicles",
+    },
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error("❌ Error:", err);
+  res.status(500).json({
+    error: "Internal server error",
+    message: err.message,
+  });
 });
 
 module.exports = app;

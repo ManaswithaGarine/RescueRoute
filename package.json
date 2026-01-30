@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "rescueroute-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,7 +10,8 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "socket.io-client": "^4.8.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -21,8 +22,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {

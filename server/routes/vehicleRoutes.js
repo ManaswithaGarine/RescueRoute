@@ -1,15 +1,22 @@
 const express = require("express");
+const router = express.Router();
 const {
-  sendVehicleAlert,
-  updateRescueScore,
+  sendAlert,
+  logAction,
+  getScore,
+  getLeaderboard,
 } = require("../controllers/vehicleController");
 
-const router = express.Router();
+// POST /api/vehicles/alert - Send alert to nearby vehicles
+router.post("/alert", sendAlert);
 
-// POST /api/vehicles/alert
-router.post("/alert", sendVehicleAlert);
+// GET /api/vehicles/leaderboard - Get rescue score leaderboard
+router.get("/leaderboard", getLeaderboard);
 
-// POST /api/vehicles/score
-router.post("/score", updateRescueScore);
+// POST /api/vehicles/:id/action - Log driver action
+router.post("/:id/action", logAction);
+
+// GET /api/vehicles/:id/score - Get vehicle rescue score
+router.get("/:id/score", getScore);
 
 module.exports = router;

@@ -2,15 +2,16 @@ const http = require("http");
 const app = require("./app");
 const { initSocket } = require("./sockets/rescueSocket");
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Create HTTP server
 const server = http.createServer(app);
 
-// Initialize socket.io
+// Initialize Socket.IO
 initSocket(server);
 
-// Start server
 server.listen(PORT, () => {
-  console.log(`🚑 RescueRoute backend running on http://localhost:${PORT}`);
+  console.log(`🚀 RescueRoute Server running on port ${PORT}`);
+  console.log(`🔗 API: http://localhost:${PORT}/api`);
+  console.log(`🔌 Socket.IO ready for connections`);
 });
